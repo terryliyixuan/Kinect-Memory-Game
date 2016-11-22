@@ -4,7 +4,7 @@ using System.Collections;
 public class Shape : MonoBehaviour
 {
 
-	// Data related to this game object
+	// Declare data related to this game object
 	public string myName;
 	public string myShape;
 	public Color myColor;
@@ -21,11 +21,33 @@ public class Shape : MonoBehaviour
 		// Set the color of this game object
 		myRenderer = GetComponent<Renderer> ();
 		myRenderer.material.color = myColor;
+
+		// Add 1 to "totalShapes" in ShapeManager
+		ShapeManager.totalShapes++;
+
+		// Add 1 to each shape category
+		AddMyShape ();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 	
+	}
+
+	// Add this shape to its category
+	void AddMyShape ()
+	{
+		switch (myShape) {
+		case "Rect":
+			ShapeManager.totalRects++;
+			break;
+		case "Sphere":
+			ShapeManager.totalSpheres++;
+			break;
+		case "Tri":
+			ShapeManager.totalTris++;
+			break;
+		}
 	}
 }
