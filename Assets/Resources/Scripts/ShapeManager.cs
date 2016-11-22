@@ -40,7 +40,7 @@ public class ShapeManager : MonoBehaviour
 		}
 		// Switch scene
 		if (Input.GetKeyDown (KeyCode.Space)) {
-			SceneManager.GetSceneByName (nextSceneName);
+			SceneManager.LoadScene (nextSceneName);
 		}
 	}
 }
