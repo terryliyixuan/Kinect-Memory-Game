@@ -40,5 +40,6 @@ public class ShapeBigManager : MonoBehaviour
 	void AssignColor ()
 	{
 		int rand = (int)Random.Range (0, presetColors.Length - 1);
+
 	}
 }
