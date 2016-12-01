@@ -3,12 +3,19 @@ using System.Collections;
 
 public class Shape : MonoBehaviour
 {
-
+	// ---------------------------------------
+	// Public variables
+	// ---------------------------------------
 	// Declare data related to this game object
 	public string myName;
 	public string myShape;
 	public Color myColor;
+	// Declare an array that stores all the preset colors
+	public Color[] colors;
 
+	// ---------------------------------------
+	// Private variables
+	// ---------------------------------------
 	// Declare components
 	private Renderer myRenderer;
 
@@ -49,5 +56,10 @@ public class Shape : MonoBehaviour
 			ShapeManager.totalTris++;
 			break;
 		}
+	}
+
+	void RandomizeColor ()
+	{
+		
 	}
 }
