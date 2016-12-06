@@ -14,9 +14,14 @@ public class ShapeBigManager : MonoBehaviour
 	public Color[] presetColors;
 
 
-
+	// All the counters
 	public static int totalShapeCounter = 0;
 	public static int totalColorCounter = 0;
+	public static int totalBlackCounter = 0;
+	public static int totalRedCounter = 0;
+	public static int totalBlueCounter = 0;
+	public static int totalGreenCounter = 0;
+	public static int totalYellowCounter = 0;
 
 	// ---------------------------
 	// Private variables
@@ -26,6 +31,8 @@ public class ShapeBigManager : MonoBehaviour
 	private float cdTimer;
 	private int shapeAmount;
 	private int shapeAmountCounter = 0;
+	private int assignedColorNum;
+	private int assignedShapeNum;
 
 	// Use this for initialization
 	void Start ()
@@ -64,6 +71,7 @@ public class ShapeBigManager : MonoBehaviour
 		shapeInstantiated.GetComponent<Renderer> ().material.color = presetColors [rand];
 	}
 
+	// Set/Reset timer
 	void SetCDTimer ()
 	{
 		cdTimer = cdTime;
