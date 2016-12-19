@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class ShapeBigManager : MonoBehaviour
 {
@@ -10,8 +11,11 @@ public class ShapeBigManager : MonoBehaviour
 	public int minNum = 1;
 	public int maxNum = 5;
 	public float cdTime = 2f;
+	// Declare an array that stores all the shape prefabs
 	public GameObject[] shapePrefabs;
 	public Color[] presetColors;
+	// Declare a string that determines the name of the next scene
+	public string nextSceneName;
 
 
 	// All the counters
@@ -34,33 +38,48 @@ public class ShapeBigManager : MonoBehaviour
 	private int assignedColorNum;
 	private int assignedShapeNum;
 
+	// The Awake function that saves all the data in this class
+	void Awake ()
+	{
+		DontDestroyOnLoad (this);
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
 		shapeAmount = (int)Random.Range (minNum, maxNum);
 		shapeParent = GameObject.Find ("Shapes");
 		SetCDTimer ();
+		SetColorCounters ();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 		cdTimer -= Time.deltaTime;
-			
+
+		// Keep instantiating shapes until it reaches the preset "shapeAmount"
 		if (shapeAmountCounter < shapeAmount && cdTimer < 0) {
-			int rand = Random.Range (0, shapePrefabs.Length);
-			Vector3 pos = new Vector3 (Random.Range (0, 10), Random.Range (0, 10), Random.Range (0, 10));
-			InstantiateShape (rand, pos);
+			InstantiateShape ();
 			AssignColor ();
+			CalculateColorCounter ();
 			shapeAmountCounter++;
 			SetCDTimer ();
+		}
+
+		// If it reaches the preset "shapeAmount", jumps to the next scene
+		if (shapeAmountCounter >= shapeAmount && SceneManager.GetActiveScene ().name != nextSceneName) {
+			SceneManager.LoadScene (nextSceneName);
 		}
 	}
 
 	// Instantiate a shape
-	void InstantiateShape (int _num, Vector3 _pos)
+	void InstantiateShape ()
 	{
-		shapeInstantiated = Instantiate (shapePrefabs [_num], _pos, Quaternion.identity) as GameObject;
+		Vector3 pos = new Vector3 (Random.Range (0, 10), Random.Range (0, 10), Random.Range (0, 10));
+		int rand = Random.Range (0, shapePrefabs.Length);
+		assignedShapeNum = rand;
+		shapeInstantiated = Instantiate (shapePrefabs [rand], pos, Quaternion.identity) as GameObject;
 		shapeInstantiated.transform.parent = shapeParent.transform;
 	}
 
@@ -68,6 +87,7 @@ public class ShapeBigManager : MonoBehaviour
 	void AssignColor ()
 	{
 		int rand = (int)Random.Range (0, presetColors.Length);
+		assignedColorNum = rand;
 		shapeInstantiated.GetComponent<Renderer> ().material.color = presetColors [rand];
 	}
 
@@ -76,4 +96,38 @@ public class ShapeBigManager : MonoBehaviour
 	{
 		cdTimer = cdTime;
 	}
+
+	// Set/Reset all the color counters
+	void SetColorCounters ()
+	{
+		totalBlackCounter = 0;
+		totalRedCounter = 0;
+		totalBlueCounter = 0;
+		totalGreenCounter = 0;
+		totalYellowCounter = 0;
+	}
+
+	// Calculate all the color counters
+	void CalculateColorCounter ()
+	{
+		switch (assignedColorNum) {
+		case 0:
+			totalBlackCounter++;
+			break;
+		case 1:
+			totalRedCounter++;
+			break;
+		case 2:
+			totalBlueCounter++;
+			break;
+		case 3:
+			totalGreenCounter++;
+			break;
+		case 4:
+			totalYellowCounter++;
+			break;
+		}
+	}
+
+	// Calculate all the shape counters
 }
