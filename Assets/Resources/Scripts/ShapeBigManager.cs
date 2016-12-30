@@ -128,6 +128,4 @@ public class ShapeBigManager : MonoBehaviour
 			break;
 		}
 	}
-
-	// Calculate all the shape counters
 }
