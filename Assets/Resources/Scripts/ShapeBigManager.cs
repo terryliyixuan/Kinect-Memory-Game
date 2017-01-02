@@ -19,13 +19,13 @@ public class ShapeBigManager : MonoBehaviour
 
 
 	// All the counters
-	public static int totalShapeCounter = 0;
-	public static int totalColorCounter = 0;
-	public static int totalBlackCounter = 0;
-	public static int totalRedCounter = 0;
-	public static int totalBlueCounter = 0;
-	public static int totalGreenCounter = 0;
-	public static int totalYellowCounter = 0;
+	public int totalShapeCounter = 0;
+	public int totalColorCounter = 0;
+	public int totalBlackCounter = 0;
+	public int totalRedCounter = 0;
+	public int totalBlueCounter = 0;
+	public int totalGreenCounter = 0;
+	public int totalYellowCounter = 0;
 
 	// ---------------------------
 	// Private variables

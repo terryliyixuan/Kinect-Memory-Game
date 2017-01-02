@@ -27,8 +27,9 @@ public class DisplayQuestion : MonoBehaviour
 		// Declare a random int within questions array's length
 		// And display the question on this text object
 		int rand = (int)Random.Range (0, questionManager.questions.Length);
-		myText.text = questionManager.questions [rand];
+		myText.text = questionManager.questions [rand].myQuestion;
 
+		Debug.Log ("The answer is: " + questionManager.questions [rand].myAnswer);
 	}
 	
 	// Update is called once per frame
