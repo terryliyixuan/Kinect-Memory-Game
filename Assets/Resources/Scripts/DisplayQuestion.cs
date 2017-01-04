@@ -23,13 +23,8 @@ public class DisplayQuestion : MonoBehaviour
 		questionManager = GameObject.FindObjectOfType<QuestionBigManager> ();
 		// Instantiate myText
 		myText = GetComponent<Text> ();
-
-		// Declare a random int within questions array's length
-		// And display the question on this text object
-		int rand = (int)Random.Range (0, questionManager.questions.Length);
-		myText.text = questionManager.questions [rand].myQuestion;
-
-		Debug.Log ("The answer is: " + questionManager.questions [rand].myAnswer);
+		// Display the question on this text object
+		myText.text = questionManager.questions [QuestionBigManager.questionNum].myQuestion;
 	}
 	
 	// Update is called once per frame
