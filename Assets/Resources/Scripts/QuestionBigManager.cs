@@ -19,6 +19,10 @@ public class QuestionBigManager : MonoBehaviour
 	public static int theAnswer;
 	// Declare a int that receives the answer that player gives
 	public static int givenAnswer;
+	// Declare a bool that tells if an answer has been given or not
+	public static bool hasGivenAnswer = false;
+	// Declare a bool that determines if the answer given by the player is correct or not
+	public static bool isAnswerCorrect = false;
 
 
 	// Find all the "QuestionData" objects in the scene first by using Awake()

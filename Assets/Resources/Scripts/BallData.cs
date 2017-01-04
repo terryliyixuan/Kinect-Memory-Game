@@ -24,6 +24,7 @@ public class BallData : MonoBehaviour
 	void OnCollisionEnter (Collision col)
 	{
 		if (col.gameObject.name == "Player") {
+			// Set the "givenAnswer" as the number that this object contains/represents
 			QuestionBigManager.givenAnswer = myNumber;
 			DetermineAnswer ();
 		}
@@ -31,9 +32,14 @@ public class BallData : MonoBehaviour
 
 	void DetermineAnswer ()
 	{
+		// An answer has been given so set the "hasGivenAnswer" to be true
+		QuestionBigManager.hasGivenAnswer = true;
+		// Judge if the given answer is correct or not
 		if (QuestionBigManager.givenAnswer == QuestionBigManager.theAnswer) {
+			QuestionBigManager.isAnswerCorrect = true;
 			Debug.Log ("The answer is correct");
 		} else {
+			QuestionBigManager.isAnswerCorrect = false;
 			Debug.Log ("The answer is wrong");
 		}
 	}
