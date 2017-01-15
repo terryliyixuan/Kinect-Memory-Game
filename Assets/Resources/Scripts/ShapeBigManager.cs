@@ -88,7 +88,8 @@ public class ShapeBigManager : MonoBehaviour
 	{
 		int rand = (int)Random.Range (0, presetColors.Length);
 		assignedColorNum = rand;
-		shapeInstantiated.GetComponent<Renderer> ().material.color = presetColors [rand];
+		SpriteRenderer shapeRenderer = shapeInstantiated.GetComponent<SpriteRenderer> ();
+		shapeRenderer.color = presetColors [assignedColorNum];
 	}
 
 	// Set/Reset timer
