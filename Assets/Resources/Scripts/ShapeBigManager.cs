@@ -11,20 +11,27 @@ public class ShapeBigManager : MonoBehaviour
 	public int minNum = 1;
 	public int maxNum = 5;
 	public float cdTime = 2f;
+	// Declare a float the sets the transition waiting time
+	public float transistionWaitTime = 3f;
 	// Declare an array that stores all the shape prefabs
 	public GameObject[] shapePrefabs;
 	public Color[] presetColors;
 	// Declare a string that determines the name of the next scene
 	public string nextSceneName;
-
-
 	// All the counters
+	[HideInInspector]
 	public int totalShapeCounter = 0;
+	[HideInInspector]
 	public int totalColorCounter = 0;
+	[HideInInspector]
 	public int totalBlackCounter = 0;
+	[HideInInspector]
 	public int totalRedCounter = 0;
+	[HideInInspector]
 	public int totalBlueCounter = 0;
+	[HideInInspector]
 	public int totalGreenCounter = 0;
+	[HideInInspector]
 	public int totalYellowCounter = 0;
 
 	// ---------------------------
@@ -37,6 +44,10 @@ public class ShapeBigManager : MonoBehaviour
 	private int shapeAmountCounter = 0;
 	private int assignedColorNum;
 	private int assignedShapeNum;
+	// Declare a float that counts down the transition waiting time
+	private float transitionWaitTimer;
+	// Declare a bool that tells if it is good to start counting down waiting time
+	private bool isGoodToWaitForSwitch = false;
 
 	// The Awake function that saves all the data in this class
 	void Awake ()
@@ -51,6 +62,8 @@ public class ShapeBigManager : MonoBehaviour
 		shapeParent = GameObject.Find ("Shapes");
 		SetCDTimer ();
 		SetColorCounters ();
+		// Set the transition waiting time
+		transitionWaitTimer = transistionWaitTime;
 	}
 	
 	// Update is called once per frame
@@ -67,8 +80,21 @@ public class ShapeBigManager : MonoBehaviour
 			SetCDTimer ();
 		}
 
-		// If it reaches the preset "shapeAmount", jumps to the next scene
-		if (shapeAmountCounter >= shapeAmount && SceneManager.GetActiveScene ().name != nextSceneName) {
+		// If it reaches the preset "shapeAmount"...
+		// ... We tell the game it is good to count down waiting time
+		if (shapeAmountCounter >= shapeAmount && isGoodToWaitForSwitch == false) {
+			isGoodToWaitForSwitch = true;
+		}
+
+		// If "isGoodToWaitForSwitch" is true...
+		// ... We count down the wait timer
+		if (isGoodToWaitForSwitch == true) {
+			transitionWaitTimer -= Time.deltaTime;
+		}
+
+		// If "transitionWaitTimer" is less than 0...
+		// ... We switch the scene
+		if (transitionWaitTimer <= 0 && SceneManager.GetActiveScene ().name != nextSceneName) {
 			SceneManager.LoadScene (nextSceneName);
 		}
 	}
