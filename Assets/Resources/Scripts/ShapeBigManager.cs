@@ -103,7 +103,8 @@ public class ShapeBigManager : MonoBehaviour
 	// Instantiate a shape
 	void InstantiateShape ()
 	{
-		Vector3 pos = new Vector3 (Random.Range (-10, 10), Random.Range (-10, 10), Random.Range (0, 10));
+		Vector3 pos = new Vector3 (Random.Range (-Screen.width / 2, Screen.width / 2), Random.Range (-Screen.height / 2, Screen.height / 2), 0);
+		pos = Camera.main.WorldToViewportPoint (pos);
 		int rand = Random.Range (0, shapePrefabs.Length);
 		assignedShapeNum = rand;
 		shapeInstantiated = Instantiate (shapePrefabs [rand], pos, Quaternion.identity) as GameObject;
