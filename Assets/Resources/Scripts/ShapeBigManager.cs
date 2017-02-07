@@ -15,6 +15,7 @@ public class ShapeBigManager : MonoBehaviour
 	public float transistionWaitTime = 3f;
 	// Declare an array that stores all the shape prefabs
 	public GameObject[] shapePrefabs;
+	// Declare an array that stores all the preset colors
 	public Color[] presetColors;
 	// Declare a string that determines the name of the next scene
 	public string nextSceneName;
@@ -102,7 +103,7 @@ public class ShapeBigManager : MonoBehaviour
 	// Instantiate a shape
 	void InstantiateShape ()
 	{
-		Vector3 pos = new Vector3 (Random.Range (0, 10), Random.Range (0, 10), Random.Range (0, 10));
+		Vector3 pos = new Vector3 (Random.Range (-10, 10), Random.Range (-10, 10), Random.Range (0, 10));
 		int rand = Random.Range (0, shapePrefabs.Length);
 		assignedShapeNum = rand;
 		shapeInstantiated = Instantiate (shapePrefabs [rand], pos, Quaternion.identity) as GameObject;
