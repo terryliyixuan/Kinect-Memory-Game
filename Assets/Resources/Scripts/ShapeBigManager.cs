@@ -70,33 +70,35 @@ public class ShapeBigManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		cdTimer -= Time.deltaTime;
+		if (CountDownToStart.isCountDownOver == true) {
+			cdTimer -= Time.deltaTime;
 
-		// Keep instantiating shapes until it reaches the preset "shapeAmount"
-		if (shapeAmountCounter < shapeAmount && cdTimer < 0) {
-			InstantiateShape ();
-			AssignColor ();
-			CalculateColorCounter ();
-			shapeAmountCounter++;
-			SetCDTimer ();
-		}
+			// Keep instantiating shapes until it reaches the preset "shapeAmount"
+			if (shapeAmountCounter < shapeAmount && cdTimer < 0) {
+				InstantiateShape ();
+				AssignColor ();
+				CalculateColorCounter ();
+				shapeAmountCounter++;
+				SetCDTimer ();
+			}
 
-		// If it reaches the preset "shapeAmount"...
-		// ... We tell the game it is good to count down waiting time
-		if (shapeAmountCounter >= shapeAmount && isGoodToWaitForSwitch == false) {
-			isGoodToWaitForSwitch = true;
-		}
+			// If it reaches the preset "shapeAmount"...
+			// ... We tell the game it is good to count down waiting time
+			if (shapeAmountCounter >= shapeAmount && isGoodToWaitForSwitch == false) {
+				isGoodToWaitForSwitch = true;
+			}
 
-		// If "isGoodToWaitForSwitch" is true...
-		// ... We count down the wait timer
-		if (isGoodToWaitForSwitch == true) {
-			transitionWaitTimer -= Time.deltaTime;
-		}
+			// If "isGoodToWaitForSwitch" is true...
+			// ... We count down the wait timer
+			if (isGoodToWaitForSwitch == true) {
+				transitionWaitTimer -= Time.deltaTime;
+			}
 
-		// If "transitionWaitTimer" is less than 0...
-		// ... We switch the scene
-		if (transitionWaitTimer <= 0 && SceneManager.GetActiveScene ().name != nextSceneName) {
-			SceneManager.LoadScene (nextSceneName);
+			// If "transitionWaitTimer" is less than 0...
+			// ... We switch the scene
+			if (transitionWaitTimer <= 0 && SceneManager.GetActiveScene ().name != nextSceneName) {
+				SceneManager.LoadScene (nextSceneName);
+			}
 		}
 	}
 
