@@ -28,6 +28,11 @@ public class CountDownToStart : MonoBehaviour
 	// Declare a bool that tells if the count down is over
 	public static bool isCountDownOver = false;
 
+	void Awake()
+	{
+		StartCoroutine (WaitForABit());
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -56,6 +61,6 @@ public class CountDownToStart : MonoBehaviour
 
 	IEnumerator WaitForABit ()
 	{
-		yield return new WaitForSeconds (5);
+		yield return new WaitForSeconds (1);
 	}
 }

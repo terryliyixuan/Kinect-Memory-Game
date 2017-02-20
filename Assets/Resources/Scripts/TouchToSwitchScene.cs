@@ -14,6 +14,10 @@ public class TouchToSwitchScene : MonoBehaviour
 	// Declare the name of the next scene
 	public string nextSceneName;
 
+	// ---------------------------
+	// Private variables
+	// ---------------------------
+	private bool hasSwitchedScene = false;
 
 	// Use this for initialization
 	void Start ()
@@ -24,12 +28,21 @@ public class TouchToSwitchScene : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		
+		if (Input.GetKeyDown (KeyCode.S)) {
+			SwitchScene ();
+		}
 	}
 
 	void OnCollisionEnter (Collision col)
 	{
-		SceneManager.LoadScene (nextSceneName);
+		SwitchScene ();
 	}
-		
+
+	void SwitchScene ()
+	{
+		if (hasSwitchedScene == false) {
+			SceneManager.LoadScene (nextSceneName);
+			hasSwitchedScene = true;
+		}
+	}
 }

@@ -19,7 +19,8 @@ public class ShapeBigManager : MonoBehaviour
 	public Color[] presetColors;
 	// Declare a string that determines the name of the next scene
 	public string nextSceneName;
-	// All the counters
+
+	// All the color counters
 	[HideInInspector]
 	public int totalShapeCounter = 0;
 	[HideInInspector]
@@ -34,6 +35,17 @@ public class ShapeBigManager : MonoBehaviour
 	public int totalGreenCounter = 0;
 	[HideInInspector]
 	public int totalYellowCounter = 0;
+
+	// All the shape counters
+	[HideInInspector]
+	public int totalCircleCounter = 0;
+	[HideInInspector]
+	public int totalRectCounter = 0;
+	[HideInInspector]
+	public int totalTriangleCounter = 0;
+	[HideInInspector]
+	public int totalPenagonCounter = 0;
+
 
 	// ---------------------------
 	// Private variables
@@ -63,6 +75,7 @@ public class ShapeBigManager : MonoBehaviour
 		shapeParent = GameObject.Find ("Shapes");
 		SetCDTimer ();
 		SetColorCounters ();
+		SetShapeCounters ();
 		// Set the transition waiting time
 		transitionWaitTimer = transistionWaitTime;
 	}
@@ -78,6 +91,7 @@ public class ShapeBigManager : MonoBehaviour
 				InstantiateShape ();
 				AssignColor ();
 				CalculateColorCounter ();
+				CalculateShapeCounter ();
 				shapeAmountCounter++;
 				SetCDTimer ();
 			}
@@ -156,6 +170,34 @@ public class ShapeBigManager : MonoBehaviour
 			break;
 		case 4:
 			totalYellowCounter++;
+			break;
+		}
+	}
+
+	// Set/Reset all the shape counters
+	void SetShapeCounters ()
+	{
+		totalCircleCounter = 0;
+		totalRectCounter = 0;
+		totalPenagonCounter = 0;
+		totalTriangleCounter = 0;
+	}
+
+	// Calculate all the color counters
+	void CalculateShapeCounter ()
+	{
+		switch (assignedShapeNum) {
+		case 0:
+			totalCircleCounter++;
+			break;
+		case 1:
+			totalPenagonCounter++;
+			break;
+		case 2:
+			totalRectCounter++;
+			break;
+		case 3:
+			totalTriangleCounter++;
 			break;
 		}
 	}
