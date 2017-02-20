@@ -19,14 +19,20 @@ public enum ShapeQuestions
 	Triangle
 }
 
+public enum QuestionTypes
+{
+	ShapeQuestion,
+	ColorQuestion,
+	TotalShapeQuestion,
+	TotalColorQuestion
+}
+
 // This class stores all the data of a question object
 public class QuestionData : MonoBehaviour
 {
 	// ---------------------------
 	// Public variables
 	// ---------------------------
-	// Declare a bool that tells if this question
-	public bool isThisAShapeQuestion = false;
 	// Delcare a public array that stores the preset questions
 	[Multiline]
 	public string myQuestion;
@@ -34,6 +40,8 @@ public class QuestionData : MonoBehaviour
 	public ColorQuestions colorQuestions;
 	// Declare a dropdown from ShapeQuestions
 	public ShapeQuestions shapeQuestions;
+	// Declare a dropdown from QuestionTypes
+	public QuestionTypes questionTypes;
 	// Declare an int that receives the counter from shapeBigManager
 	[HideInInspector]
 	public int myAnswer;
@@ -50,12 +58,19 @@ public class QuestionData : MonoBehaviour
 		// Initialize the "shapeManager"
 		shapeManager = GameObject.FindObjectOfType<ShapeBigManager> ();
 
-		if (isThisAShapeQuestion == false) {
-			// Get the answer from the "ShapeBigManager" class
+		switch (questionTypes) {
+		case QuestionTypes.ColorQuestion:
 			GetColorAnswer ();
-		} else {
-			// Get the shape answer
+			break;
+		case QuestionTypes.ShapeQuestion:
 			GetShapeAnswer ();
+			break;
+		case QuestionTypes.TotalShapeQuestion:
+			GetTotalShapeAnswer ();
+			break;
+		case QuestionTypes.TotalColorQuestion:
+			GetTotalColorAnswer ();
+			break;
 		}
 
 	}
@@ -103,5 +118,15 @@ public class QuestionData : MonoBehaviour
 			myAnswer = shapeManager.totalTriangleCounter;
 			break;
 		}
+	}
+
+	void GetTotalShapeAnswer ()
+	{
+		myAnswer = shapeManager.totalShapeCounter;
+	}
+
+	void GetTotalColorAnswer ()
+	{
+		myAnswer = shapeManager.totalColorCounter;
 	}
 }

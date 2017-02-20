@@ -61,6 +61,13 @@ public class ShapeBigManager : MonoBehaviour
 	private float transitionWaitTimer;
 	// Declare a bool that tells if it is good to start counting down waiting time
 	private bool isGoodToWaitForSwitch = false;
+	// Declare bools that tells if a certain color has appeared
+	private bool hasBlackAppeared = false;
+	private bool hasRedAppeared = false;
+	private bool hasBlueAppeared = false;
+	private bool hasGreenAppeared = false;
+	private bool hasYellowAppeared = false;
+
 
 	// The Awake function that saves all the data in this class
 	void Awake ()
@@ -72,6 +79,7 @@ public class ShapeBigManager : MonoBehaviour
 	void Start ()
 	{
 		shapeAmount = (int)Random.Range (minNum, maxNum);
+		totalShapeCounter = shapeAmount;
 		shapeParent = GameObject.Find ("Shapes");
 		SetCDTimer ();
 		SetColorCounters ();
@@ -158,18 +166,38 @@ public class ShapeBigManager : MonoBehaviour
 		switch (assignedColorNum) {
 		case 0:
 			totalBlackCounter++;
+			if (hasBlackAppeared == false) {
+				totalColorCounter++;
+				hasBlackAppeared = true;
+			}
 			break;
 		case 1:
 			totalRedCounter++;
+			if (hasRedAppeared == false) {
+				totalColorCounter++;
+				hasRedAppeared = true;
+			}
 			break;
 		case 2:
 			totalBlueCounter++;
+			if (hasBlueAppeared == false) {
+				totalColorCounter++;
+				hasBlueAppeared = true;
+			}
 			break;
 		case 3:
 			totalGreenCounter++;
+			if (hasGreenAppeared == false) {
+				totalColorCounter++;
+				hasGreenAppeared = true;
+			}
 			break;
 		case 4:
 			totalYellowCounter++;
+			if (hasYellowAppeared == false) {
+				totalColorCounter++;
+				hasYellowAppeared = true;
+			}
 			break;
 		}
 	}
