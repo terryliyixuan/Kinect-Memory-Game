@@ -23,6 +23,8 @@ public class QuestionBigManager : MonoBehaviour
 	public static bool hasGivenAnswer = false;
 	// Declare a bool that determines if the answer given by the player is correct or not
 	public static bool isAnswerCorrect = false;
+	// Declare an int that tells what fault is this
+	public static int currentFault = 0;
 
 
 	// Find all the "QuestionData" objects in the scene first by using Awake()
@@ -46,6 +48,8 @@ public class QuestionBigManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-	
+		if (hasGivenAnswer == true && isAnswerCorrect == false) {
+			currentFault++;
+		}
 	}
 }
