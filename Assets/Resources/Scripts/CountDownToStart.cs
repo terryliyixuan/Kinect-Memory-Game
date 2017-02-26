@@ -28,14 +28,15 @@ public class CountDownToStart : MonoBehaviour
 	// Declare a bool that tells if the count down is over
 	public static bool isCountDownOver = false;
 
-	void Awake()
+	void Awake ()
 	{
-		StartCoroutine (WaitForABit());
+		StartCoroutine (WaitForABit ());
 	}
 
 	// Use this for initialization
 	void Start ()
 	{
+		isCountDownOver = false;
 		myText = GetComponent<Text> ();
 		myText.text = startNumber.ToString ();
 		startNumber = cdTime;
@@ -46,7 +47,7 @@ public class CountDownToStart : MonoBehaviour
 	void Update ()
 	{
 		if (isCountDownOver == false) {
-			if (Time.time >= cdTimer && cdTimer <= cdTime) {
+			if (Time.timeSinceLevelLoad >= cdTimer && cdTimer <= cdTime) {
 				startNumber -= 1;
 				myText.text = startNumber.ToString ();
 				cdTimer += 1;

@@ -38,6 +38,7 @@ public class DisplayImageResults : MonoBehaviour
 			Debug.Log ("currentfault is: " + QuestionBigManager.currentFault);
 			images [QuestionBigManager.currentFault - 1].sprite = wrongSprite;
 			QuestionBigManager.hasGivenAnswer = false;
+			QuestionBigManager.hasCurrentGameEnded = true;
 		}
 	}
 }

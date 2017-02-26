@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class QuestionBigManager : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class QuestionBigManager : MonoBehaviour
 	[Multiline]
 	[HideInInspector]
 	public QuestionData[] questions;
+	// Declare the name of the game scene
+	public string gameSceneName;
+	// Declare a float that tells how long it should wait to switch back to the game scene
+	public float switchSceneTime;
 	// Declare a ShapeBigManager
 	private ShapeBigManager shapeManager;
 	// Declare a question that is to be selected
@@ -25,7 +30,14 @@ public class QuestionBigManager : MonoBehaviour
 	public static bool isAnswerCorrect = false;
 	// Declare an int that tells what fault is this
 	public static int currentFault = 0;
+	// Declare a bool that tells if this current game has ended
+	public static bool hasCurrentGameEnded = false;
 
+	// ---------------------------
+	// Private variables
+	// ---------------------------
+	// Declare a float that counts the switchSceneTimer;
+	private float switchSceneTimer;
 
 	// Find all the "QuestionData" objects in the scene first by using Awake()
 	void Awake ()
@@ -37,12 +49,21 @@ public class QuestionBigManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		// Reset the bools
+		hasGivenAnswer = false;
+		isAnswerCorrect = false;
+		hasCurrentGameEnded = false;
+
 		// Find the shapeManager in the scene
 		shapeManager = GameObject.FindObjectOfType<ShapeBigManager> ();
 		// Randomize a question number
 		questionNum = (int)Random.Range (0, questions.Length);
 		// Find answer to the question
 		theAnswer = questions [questionNum].myAnswer;
+		// Destroy the Shape Manager that has a "DontDestroyOnLoad()"
+		Destroy (shapeManager.gameObject);
+		// Set the switchTimer
+		switchSceneTimer = switchSceneTime;
 	}
 	
 	// Update is called once per frame
@@ -50,6 +71,16 @@ public class QuestionBigManager : MonoBehaviour
 	{
 		if (hasGivenAnswer == true && isAnswerCorrect == false) {
 			currentFault++;
+		} else if (hasGivenAnswer == true && isAnswerCorrect == true) {
+			hasCurrentGameEnded = true;
+		}
+
+		if (hasCurrentGameEnded == true) {
+			switchSceneTimer -= Time.deltaTime;
+			if (switchSceneTimer <= 0) {
+				hasCurrentGameEnded = false;
+				SceneManager.LoadScene (gameSceneName);
+			}
 		}
 	}
 }
