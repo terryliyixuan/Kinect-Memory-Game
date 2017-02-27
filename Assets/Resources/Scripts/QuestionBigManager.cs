@@ -14,6 +14,8 @@ public class QuestionBigManager : MonoBehaviour
 	public QuestionData[] questions;
 	// Declare the name of the game scene
 	public string gameSceneName;
+	// Declare the name of the end scene
+	public string endSceneName;
 	// Declare a float that tells how long it should wait to switch back to the game scene
 	public float switchSceneTime;
 	// Declare a ShapeBigManager
@@ -65,8 +67,6 @@ public class QuestionBigManager : MonoBehaviour
 		questionNum = (int)Random.Range (0, questions.Length);
 		// Find answer to the question
 		theAnswer = questions [questionNum].myAnswer;
-		// Destroy the Shape Manager that has a "DontDestroyOnLoad()"
-		Destroy (shapeManager.gameObject);
 		// Set the switchTimer
 		switchSceneTimer = switchSceneTime;
 	}
@@ -88,7 +88,13 @@ public class QuestionBigManager : MonoBehaviour
 			switchSceneTimer -= Time.deltaTime;
 			if (switchSceneTimer <= 0) {
 				hasCurrentGameEnded = false;
-				SceneManager.LoadScene (gameSceneName);
+				// Destroy the Shape Manager that has a "DontDestroyOnLoad()"
+				Destroy (shapeManager.gameObject);
+				if (currentFault == 3) {
+					SceneManager.LoadScene (endSceneName);
+				} else {
+					SceneManager.LoadScene (gameSceneName);
+				}
 			}
 		}
 	}

@@ -79,7 +79,6 @@ public class ShapeBigManager : MonoBehaviour
 	void Start ()
 	{
 		shapeAmount = (int)Random.Range (minNum, maxNum);
-		totalShapeCounter = shapeAmount;
 		shapeParent = GameObject.Find ("Shapes");
 		SetCDTimer ();
 		SetColorCounters ();
@@ -101,6 +100,7 @@ public class ShapeBigManager : MonoBehaviour
 				CalculateColorCounter ();
 				CalculateShapeCounter ();
 				shapeAmountCounter++;
+				totalShapeCounter = shapeAmountCounter;
 				SetCDTimer ();
 			}
 

@@ -43,7 +43,7 @@ public class QuestionData : MonoBehaviour
 	// Declare a dropdown from QuestionTypes
 	public QuestionTypes questionTypes;
 	// Declare an int that receives the counter from shapeBigManager
-	[HideInInspector]
+	//[HideInInspector]
 	public int myAnswer;
 
 	// ---------------------------
@@ -52,8 +52,7 @@ public class QuestionData : MonoBehaviour
 	// Declare a ShapeBigManager
 	private ShapeBigManager shapeManager;
 
-	// Use this for initialization
-	void Start ()
+	void Awake ()
 	{
 		// Initialize the "shapeManager"
 		shapeManager = GameObject.FindObjectOfType<ShapeBigManager> ();
@@ -72,6 +71,11 @@ public class QuestionData : MonoBehaviour
 			GetTotalColorAnswer ();
 			break;
 		}
+	}
+
+	// Use this for initialization
+	void Start ()
+	{
 
 	}
 	
