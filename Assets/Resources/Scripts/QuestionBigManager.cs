@@ -28,10 +28,14 @@ public class QuestionBigManager : MonoBehaviour
 	public static bool hasGivenAnswer = false;
 	// Declare a bool that determines if the answer given by the player is correct or not
 	public static bool isAnswerCorrect = false;
-	// Declare an int that tells what fault is this
+	// Declare an int that tells how many faulys player has made
 	public static int currentFault = 0;
+	// Declare an int tells how many correct answers player has given
+	public static int currentCorrectAnswer = 0;
 	// Declare a bool that tells if this current game has ended
 	public static bool hasCurrentGameEnded = false;
+	// Declare a bool that tells if player input shall be disabled
+	public static bool shouldInputDisabled = false;
 
 	// ---------------------------
 	// Private variables
@@ -53,6 +57,7 @@ public class QuestionBigManager : MonoBehaviour
 		hasGivenAnswer = false;
 		isAnswerCorrect = false;
 		hasCurrentGameEnded = false;
+		shouldInputDisabled = false;
 
 		// Find the shapeManager in the scene
 		shapeManager = GameObject.FindObjectOfType<ShapeBigManager> ();
@@ -70,11 +75,15 @@ public class QuestionBigManager : MonoBehaviour
 	void Update ()
 	{
 		if (hasGivenAnswer == true && isAnswerCorrect == false) {
+			shouldInputDisabled = true;
 			currentFault++;
 		} else if (hasGivenAnswer == true && isAnswerCorrect == true) {
-			hasCurrentGameEnded = true;
+			shouldInputDisabled = true;
+			currentCorrectAnswer++;
 		}
 
+
+		// Before switching back to the game scene, count down to trans
 		if (hasCurrentGameEnded == true) {
 			switchSceneTimer -= Time.deltaTime;
 			if (switchSceneTimer <= 0) {

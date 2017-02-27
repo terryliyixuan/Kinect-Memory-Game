@@ -35,7 +35,7 @@ public class DisplayImageResults : MonoBehaviour
 	void LateUpdate ()
 	{
 		if (QuestionBigManager.hasGivenAnswer == true && QuestionBigManager.isAnswerCorrect == false) {
-			Debug.Log ("currentfault is: " + QuestionBigManager.currentFault);
+			//Debug.Log ("currentfault is: " + QuestionBigManager.currentFault);
 			images [QuestionBigManager.currentFault - 1].sprite = wrongSprite;
 			QuestionBigManager.hasGivenAnswer = false;
 			QuestionBigManager.hasCurrentGameEnded = true;
