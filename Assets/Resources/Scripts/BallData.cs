@@ -23,7 +23,7 @@ public class BallData : MonoBehaviour
 
 	void OnCollisionEnter (Collision col)
 	{
-		if (col.gameObject.name == "Player" && QuestionBigManager.shouldInputDisabled == false) {
+		if (col.gameObject.tag == "Player" && QuestionBigManager.shouldInputDisabled == false) {
 			// Set the "givenAnswer" as the number that this object contains/represents
 			QuestionBigManager.givenAnswer = myNumber;
 			DetermineAnswer ();

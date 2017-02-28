@@ -13,6 +13,8 @@ public class TouchToSwitchScene : MonoBehaviour
 	// ---------------------------
 	// Declare the name of the next scene
 	public string nextSceneName;
+	// Declare a bool that tells if touching this object should quit the game
+	public bool isThisAQuitter = false;
 
 	// ---------------------------
 	// Private variables
@@ -22,7 +24,8 @@ public class TouchToSwitchScene : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		
+		Screen.SetResolution (1920, 1080, true);
+		Cursor.visible = false;
 	}
 	
 	// Update is called once per frame
@@ -31,11 +34,20 @@ public class TouchToSwitchScene : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.S)) {
 			SwitchScene ();
 		}
+
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			Application.Quit ();		
+		}
 	}
 
 	void OnCollisionEnter (Collision col)
 	{
-		SwitchScene ();
+		if (isThisAQuitter == false) {
+			SwitchScene ();
+		} else {
+			Application.Quit ();
+		}
+
 	}
 
 	void SwitchScene ()
