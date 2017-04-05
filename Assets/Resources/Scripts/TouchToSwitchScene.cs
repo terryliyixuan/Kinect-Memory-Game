@@ -35,7 +35,8 @@ public class TouchToSwitchScene : MonoBehaviour
 			SwitchScene ();
 		}
 
-		if (Input.GetKeyDown (KeyCode.Escape)) {
+		// Quit the game quickly by pressing ESC
+		if (Input.GetKeyDown (KeyCode.Escape) && isThisAQuitter == true) {
 			Application.Quit ();		
 		}
 	}
