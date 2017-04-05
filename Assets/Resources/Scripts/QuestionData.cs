@@ -4,6 +4,7 @@ using System.Collections;
 // Declare an enum that helps determine which counter to get
 public enum ColorQuestions
 {
+	None,
 	Black,
 	Red,
 	Green,
@@ -13,6 +14,7 @@ public enum ColorQuestions
 
 public enum ShapeQuestions
 {
+	None,
 	Circle,
 	Penagon,
 	Rect,

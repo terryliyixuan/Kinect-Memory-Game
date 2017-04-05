@@ -39,17 +39,23 @@ public class QuestionBigManager : MonoBehaviour
 	// Declare a bool that tells if player input shall be disabled
 	public static bool shouldInputDisabled = false;
 
+	public GameObject[] questionsArray;
+	// All potential questions including game objects that have question children
+
 	// ---------------------------
 	// Private variables
 	// ---------------------------
 	// Declare a float that counts the switchSceneTimer;
 	private float switchSceneTimer;
+	private static int questionTypeCounter = 0;
+	// Which type of question should we ask
 
 	// Find all the "QuestionData" objects in the scene first by using Awake()
 	void Awake ()
 	{
 		// Initialize the questions array
-		questions = GameObject.FindObjectsOfType<QuestionData> ();
+		//questions = GameObject.FindObjectsOfType<QuestionData> ();
+		GenerateAQuestion ();
 	}
 
 	// Use this for initialization
@@ -88,14 +94,29 @@ public class QuestionBigManager : MonoBehaviour
 			switchSceneTimer -= Time.deltaTime;
 			if (switchSceneTimer <= 0) {
 				hasCurrentGameEnded = false;
+
 				// Destroy the Shape Manager that has a "DontDestroyOnLoad()"
 				Destroy (shapeManager.gameObject);
+
+				// Switch to result screen when player fails for 3 times
+				// Or switch back to game scene if not failed for the 3rd time
 				if (currentFault == 3) {
-					SceneManager.LoadScene (endSceneName);
+					SceneManager.LoadScene (gameSceneName);
 				} else {
 					SceneManager.LoadScene (gameSceneName);
 				}
 			}
 		}
+	}
+
+	// Get a question from the current question type
+	private void GenerateAQuestion ()
+	{
+		if (currentFault == 3) {
+			questionTypeCounter++;
+			currentFault = 0;
+		}
+		questions = questionsArray [questionTypeCounter].GetComponentsInChildren<QuestionData> ();
+
 	}
 }
