@@ -38,17 +38,16 @@ public class QuestionBigManager : MonoBehaviour
 	public static bool hasCurrentGameEnded = false;
 	// Declare a bool that tells if player input shall be disabled
 	public static bool shouldInputDisabled = false;
-
-	public GameObject[] questionsArray;
 	// All potential questions including game objects that have question children
+	public GameObject[] questionsArray;
+	// Which type of question should we ask
+	public static int questionTypeCounter = 0;
 
 	// ---------------------------
 	// Private variables
 	// ---------------------------
 	// Declare a float that counts the switchSceneTimer;
 	private float switchSceneTimer;
-	private static int questionTypeCounter = 0;
-	// Which type of question should we ask
 
 	// Find all the "QuestionData" objects in the scene first by using Awake()
 	void Awake ()
@@ -76,7 +75,7 @@ public class QuestionBigManager : MonoBehaviour
 		// Set the switchTimer
 		switchSceneTimer = switchSceneTime;
 	}
-	
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -100,10 +99,19 @@ public class QuestionBigManager : MonoBehaviour
 
 				// Switch to result screen when player fails for 3 times
 				// Or switch back to game scene if not failed for the 3rd time
-				if (currentFault == 3) {
-					SceneManager.LoadScene (gameSceneName);
+				if (questionTypeCounter < questionsArray.Length - 1) {
+					if (currentFault == 3) {
+						DisplayHeadsUpText.headsUpTextCounter++;
+						SceneManager.LoadScene (gameSceneName);
+					} else {
+						SceneManager.LoadScene (gameSceneName);
+					}
 				} else {
-					SceneManager.LoadScene (gameSceneName);
+					if (currentFault == 3) {
+						SceneManager.LoadScene (endSceneName);
+					} else {
+						SceneManager.LoadScene (gameSceneName);
+					}
 				}
 			}
 		}
@@ -112,11 +120,11 @@ public class QuestionBigManager : MonoBehaviour
 	// Get a question from the current question type
 	private void GenerateAQuestion ()
 	{
+		// When players fails for three times, we generate question from the next question type
 		if (currentFault == 3) {
 			questionTypeCounter++;
 			currentFault = 0;
 		}
 		questions = questionsArray [questionTypeCounter].GetComponentsInChildren<QuestionData> ();
-
 	}
 }
