@@ -19,21 +19,31 @@ public class DartController : MonoBehaviour
 	private Transform myCurrentTarget;
 	private float startTime;
 	private float journeyLength;
+	private SpriteRenderer mySpriteRenderer;
 
 	// Use this for initialization
 	void Start ()
 	{
-		myCurrentSpeed = myInitialSpeed;
-		myCurrentTarget = myInitialTarget;
-		startTime = Time.time;
-		journeyLength = Vector2.Distance (myInsSpot.position, myCurrentTarget.position);
+		Invoke ("AssignAttributes", 0.1f);
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		float distanceCovered = (Time.time - startTime) * myCurrentSpeed;
-		float fractJourney = distanceCovered / journeyLength;
-		transform.position = Vector3.Lerp (myInsSpot.position, myCurrentTarget.position, fractJourney);
+		if (myInsSpot != null && myCurrentTarget != null) {
+			float distanceCovered = (Time.time - startTime) * myCurrentSpeed;
+			float fractJourney = distanceCovered / journeyLength;
+			transform.position = Vector3.Lerp (myInsSpot.position, myCurrentTarget.position, fractJourney);
+		}
+	}
+
+	private void AssignAttributes ()
+	{
+		mySpriteRenderer = GetComponent<SpriteRenderer> ();
+		mySpriteRenderer.color = myColor;
+		myCurrentSpeed = myInitialSpeed;
+		myCurrentTarget = myInitialTarget;
+		startTime = Time.time;
+		journeyLength = Vector2.Distance (myInsSpot.position, myCurrentTarget.position);
 	}
 }
