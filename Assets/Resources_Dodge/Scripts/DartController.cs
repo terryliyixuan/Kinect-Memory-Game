@@ -30,7 +30,7 @@ public class DartController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (myInsSpot != null && myCurrentTarget != null && GameManager.isPlayerDead == false) {
+		if (myInsSpot != null && myCurrentTarget != null && GameManager.isPlayerDead == false && GameManager.hasGameStarted == true) {
 			float distanceCovered = (Time.time - startTime) * myCurrentSpeed;
 			float fractJourney = distanceCovered / journeyLength;
 			transform.position = Vector3.Lerp (myInsSpot.position, myCurrentTarget.position, fractJourney);
