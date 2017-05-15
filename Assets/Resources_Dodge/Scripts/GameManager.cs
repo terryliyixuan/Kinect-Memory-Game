@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 	public Camera scoreCamera;
 	public Text scoreText;
 	public float endCDTime;
+	public TouchToSwitchScene endCircle;
 	//public GameObject scoreBody;
 
 
@@ -82,8 +83,13 @@ public class GameManager : MonoBehaviour
 				if (endCDTime > 0) {
 					endCDTime -= Time.deltaTime;
 				} else {
+					DartController[] darts = GameObject.FindObjectsOfType<DartController> ();
+					foreach (DartController dart in darts) {
+						dart.gameObject.SetActive (false);
+					}
 					Camera.main.gameObject.SetActive (false);
 					scoreCamera.gameObject.SetActive (true);
+					endCircle.gameObject.SetActive (true);
 					//scoreBody.gameObject.SetActive (true);
 					Destroy (gameObject);
 				}
